@@ -21,7 +21,7 @@ class Bob
       end
 
       def blank?
-        clean_message.delete(" ") == ""
+        message.strip.empty?
       end
 
       def shouting?
