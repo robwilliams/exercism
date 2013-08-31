@@ -1,6 +1,22 @@
 class Bob
   def hey(msg)
-    Message.new(msg).respond
+    Message.new(msg).respond(self)
+  end
+
+  def respond_to_blank_message
+    'Fine. Be that way!'
+  end
+
+  def respond_to_shouting
+    'Woah, chill out!'
+  end
+
+  def respond_to_question
+    'Sure.'
+  end
+
+  def respond_to_default
+    'Whatever.'
   end
 
   private
@@ -9,15 +25,15 @@ class Bob
         @message = strip_new_lines(message.to_s)
       end
 
-      def respond
+      def respond(person)
         if blank?
-          'Fine. Be that way!'
+          person.respond_to_blank_message
         elsif shouting?
-          'Woah, chill out!'
+          person.respond_to_shouting
         elsif question?
-          'Sure.'
+          person.respond_to_question
         else
-          'Whatever.'
+          person.respond_to_default
         end
       end
 
