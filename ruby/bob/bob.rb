@@ -14,22 +14,28 @@ class Bob
   end
 
   private
-    class Message < Struct.new(:message)
+    class Message
+
+      def initialize(message)
+        @message = strip_new_lines(message.to_s)
+      end
+
       def blank?
         clean_message.delete(" ") == ""
       end
 
       def shouting?
-        clean_message == clean_message.upcase
+        message == message.upcase
       end
 
       def question?
-        clean_message.end_with?("?")
+        message.end_with?("?")
       end
 
       private
-      def clean_message
-        message.split("\n").join
+      attr_reader :message
+      def strip_new_lines(string)
+        string.split("\n").join
       end
     end
 end
