@@ -72,6 +72,10 @@ class TeenagerTest < MiniTest::Unit::TestCase
     assert_equal 'Fine. Be that way!', teenager.hey('')
   end
 
+  def test_more_silence
+    assert_equal 'Fine. Be that way!', teenager.hey(nil)
+  end
+
   def test_prolonged_silence
     assert_equal 'Fine. Be that way!', teenager.hey('    ')
   end
