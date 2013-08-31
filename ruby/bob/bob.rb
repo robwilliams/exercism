@@ -2,7 +2,7 @@ class Bob
   def hey(msg)
     message = Message.new(msg)
 
-    if message.empty?
+    if message.blank?
       'Fine. Be that way!'
     elsif message.shouting?
       'Woah, chill out!'
@@ -15,7 +15,7 @@ class Bob
 
   private
     class Message < Struct.new(:message)
-      def empty?
+      def blank?
         clean_message.delete(" ") == ""
       end
 
