@@ -1,21 +1,10 @@
 class Bob
   def hey(msg)
-    message = Message.new(msg)
-
-    if message.blank?
-      'Fine. Be that way!'
-    elsif message.shouting?
-      'Woah, chill out!'
-    elsif message.question?
-      'Sure.'
-    else
-      'Whatever.'
-    end
+    Message.new(msg).respond
   end
 
   private
     class Message
-
       def initialize(message)
         @message = strip_new_lines(message.to_s)
       end
@@ -30,6 +19,18 @@ class Bob
 
       def question?
         message.end_with?("?")
+      end
+
+      def respond
+        if blank?
+          'Fine. Be that way!'
+        elsif shouting?
+          'Woah, chill out!'
+        elsif question?
+          'Sure.'
+        else
+          'Whatever.'
+        end
       end
 
       private
