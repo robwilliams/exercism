@@ -24,7 +24,7 @@ class Bob
       end
 
       def question?
-        clean_message =~ /\?$/
+        clean_message.end_with?("?")
       end
 
       private
