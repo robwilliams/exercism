@@ -1,10 +1,12 @@
 class Bob
   def hey(msg)
-    return 'Fine. Be that way!' if msg.delete(" ") == ""
-    case msg.split("\n").join
-    when msg.upcase
+    message = Message.new(msg)
+
+    if message.empty?
+      'Fine. Be that way!'
+    elsif message.shouting?
       'Woah, chill out!'
-    when /\?$/
+    elsif message.question?
       'Sure.'
     else
       'Whatever.'
@@ -12,7 +14,22 @@ class Bob
   end
 
   private
-    class Message < Struct
+    class Message < Struct.new(:message)
+      def empty?
+        clean_message.delete(" ") == ""
+      end
 
+      def shouting?
+        clean_message == clean_message.upcase
+      end
+
+      def question?
+        clean_message =~ /\?$/
+      end
+
+      private
+      def clean_message
+        message.split("\n").join
+      end
     end
 end
