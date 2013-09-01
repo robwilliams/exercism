@@ -29,6 +29,10 @@ class Bob
       end
 
       private
+      def message
+        super.to_s
+      end
+
       def blank?
         message.strip.empty?
       end
