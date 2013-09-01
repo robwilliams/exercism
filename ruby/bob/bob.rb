@@ -1,45 +1,34 @@
 class Bob
+
+  RESPONSES = {
+    blank:    'Fine. Be that way!',
+    shouting: 'Woah, chill out!',
+    question: 'Sure.',
+    default:  'Whatever.'
+  }
+
   def hey(msg)
     Message.new(msg).respond(self)
   end
 
-  def respond_to_blank_message
-    'Fine. Be that way!'
-  end
-
-  def respond_to_shouting
-    'Woah, chill out!'
-  end
-
-  def respond_to_question
-    'Sure.'
-  end
-
-  def respond_to_default
-    'Whatever.'
+  def respond_to(type)
+    RESPONSES.fetch(type)
   end
 
   private
-    class Message
-      def initialize(message)
-        @message = strip_new_lines(message.to_s)
-      end
+    class Message < Struct.new(:message)
+
+      TYPES = [
+        :blank,
+        :shouting,
+        :question,
+      ]
 
       def respond(person)
-        if blank?
-          person.respond_to_blank_message
-        elsif shouting?
-          person.respond_to_shouting
-        elsif question?
-          person.respond_to_question
-        else
-          person.respond_to_default
-        end
+        person.respond_to(type)
       end
 
       private
-      attr_reader :message
-
       def blank?
         message.strip.empty?
       end
@@ -52,8 +41,8 @@ class Bob
         message.end_with?("?")
       end
 
-      def strip_new_lines(string)
-        string.split("\n").join
+      def type
+        TYPES.detect{|type| send("#{type}?") } || :default
       end
     end
 end
