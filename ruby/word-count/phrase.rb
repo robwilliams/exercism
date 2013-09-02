@@ -37,11 +37,11 @@ class Phrase < Struct.new(:phrase)
       self.class.new(map(&:downcase))
     end
 
-    def remove_punctuation
+    def without_punctuation
       self.class.new(map{|word| word.gsub(/[^a-z0-9]/i, '') })
     end
 
-    def remove_blank_words
+    def without_blank_words
       self.class.new(reject(&:empty?))
     end
 
