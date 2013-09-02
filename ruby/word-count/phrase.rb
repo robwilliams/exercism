@@ -1,5 +1,3 @@
-require 'forwardable'
-
 class Phrase < Struct.new(:phrase)
 
   def word_count
@@ -8,7 +6,7 @@ class Phrase < Struct.new(:phrase)
 
   private
   def words
-    Words.from_string(phrase).clean!
+    Words.from_string(phrase).clean
   end
   
   class Words < Struct.new(:words)
@@ -28,23 +26,23 @@ class Phrase < Struct.new(:phrase)
       end
     end
       
-    def clean!
-      normalize!
-      .without_punctuation!
-      .without_blank_words!
+    def clean
+      self.normalize
+          .without_punctuation
+          .without_blank_words
     end
 
     protected
-    def normalize!
+    def normalize
       self.class.new(map(&:downcase))
     end
 
-    def without_punctuation!
+    def remove_punctuation
       self.class.new(map{|word| word.gsub(/[^a-z0-9]/i, '') })
     end
 
-    def without_blank_words!
-      self.class.new(reject{|word| word == '' })
+    def remove_blank_words
+      self.class.new(reject(&:empty?))
     end
 
     private
