@@ -1,6 +1,6 @@
 defmodule Teenager do
 
-  import String
+  import String, only: [upcase: 1, ends_with?: 2, strip: 1]
 
   def hey(msg) do
     cond do
