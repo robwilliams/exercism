@@ -2,20 +2,16 @@ defmodule Teenager do
 
   import String
 
-  def hey(""), do: "Fine. Be that way!"
-  def hey("  "), do: "Fine. Be that way!"
-
   def hey(msg) do
-    response = "Whatever."
-
-    if upcase(msg) == msg do
-      response = "Woah, chill out!"
+    cond do
+      empty?(msg)    -> "Fine. Be that way!"
+      shouting?(msg) -> "Woah, chill out!"
+      question?(msg) -> "Sure."
+      true           -> "Whatever."
     end
-
-    if ends_with?(msg, "?") do
-      response = "Sure."
-    end
-
-    response
   end
+
+  defp shouting?(msg), do: msg == upcase(msg)
+  defp question?(msg), do: ends_with?(msg, "?")
+  defp empty?(msg),    do: strip(msg) == ""
 end
