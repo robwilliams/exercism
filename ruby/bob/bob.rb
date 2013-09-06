@@ -46,7 +46,7 @@ class Bob
       end
 
       def type
-        TYPES.detect{|type| send("#{type}?") } || :default
+        TYPES.detect(-> {:default}) {|type| send("#{type}?") }
       end
     end
 end
