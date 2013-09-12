@@ -1,30 +1,20 @@
-#class Anagram < Struct.new(:word)
-  #def match(words)
-    #words.select{|x| 
-      #x = x.downcase
-      #(x.length == word.length) &&
-      #(x.chars - word.chars).empty?
-    #}.reject{|x| x.downcase == word }
-  #end
+class Anagram < Struct.new(:anagram)
 
-  #def word
-    #super.downcase
-  #end
-#end
-
-class Anagram
-  def initialize(word)
-    @word = word
-  end
-
-  def match(words)
-    words_to_match(words)
+  def match(arr)
+    @words = arr
+    words_to_match.each_with_index.map do |word, i|
+      words[i] if word.chars.sort == anagram_to_match.chars.sort
+    end.compact
   end
 
   private
-  attr_reader :word
+  attr_reader :words
 
-  def words_to_match(words)
-    words - [word]
+  def words_to_match
+    words.map(&:downcase) - [anagram_to_match]
+  end
+
+  def anagram_to_match
+    anagram.downcase
   end
 end
