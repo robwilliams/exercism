@@ -1,20 +1,26 @@
 class School
   def initialize
-    @db = Hash.new { Array.new }
+    @students = Hash.new { Array.new }
   end
-  attr_reader :db
+
+  def db
+    students.clone
+  end
 
   def add(name, grade)
-    db[grade] += Array(name)
+    students[grade] += Array(name)
   end
 
   def grade(grade)
-    db[grade]
+    students[grade]
   end
 
   def sort
-    db.sort.each_with_object({}) {|(k,v), result|
+    students.sort.each_with_object({}) {|(k,v), result|
       result[k] = v.sort
     }
   end
+
+  private
+  attr_reader :students
 end
